@@ -1,0 +1,26 @@
+extra/
+myenv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# data, models and outputs
+/data/
+/raw_data/
+/model/
+/runs/
+/output/
+*.safetensors
+.hf-cache/
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/

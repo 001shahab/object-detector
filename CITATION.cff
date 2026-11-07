@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: >-
+  This software implements a method by other authors. If you use it, please cite the
+  Urbex paper (preferred citation below).
+title: "3s-vision: an implementation of Urbex"
+type: software
+authors:
+  - family-names: Anbarjafari
+    given-names: Shahab
+    affiliation: 3S Holding OÜ
+    email: shb@3sholding.com
+license: Apache-2.0
+version: 1.0.0
+date-released: 2026-11-07
+preferred-citation:
+  type: article
+  title: "Urbex: Agentic Spatial Grounding for City-Scale 3D Scenes"
+  authors:
+    - family-names: Wang
+      given-names: Yu
+    - family-names: Dai
+      given-names: Rui
+    - family-names: Chen
+      given-names: Wei
+    - family-names: Wang
+      given-names: Yi
+    - family-names: Dang
+      given-names: Bo
+    - family-names: Liu
+      given-names: Kaikui
+    - family-names: Chu
+      given-names: Xiangxiang
+    - family-names: Li
+      given-names: Yansheng
+  journal: "arXiv preprint arXiv:2610.18356"
+  year: 2026
+  identifiers:
+    - type: other
+      value: "arXiv:2610.18356"

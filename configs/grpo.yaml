@@ -1,0 +1,57 @@
+# Multi-turn GRPO training of Urbex (Sec. 3.3, Appendix A.1).
+# Paper setting: 16 GPUs, Qwen3-VL-4B-Instruct, 300 steps.
+# Launch: accelerate launch --num_processes 16 -m vision3s.cli train --config configs/grpo.yaml
+
+model_name_or_path: Qwen/Qwen3-VL-4B-Instruct
+data_root: data/cityrefer
+dataset: cityrefer
+train_file: meta/cityrefer_train.jsonl
+val_file: meta/cityrefer_val.jsonl
+output_dir: runs/urbex_grpo
+seed: 42
+
+# optimisation
+max_steps: 300
+rollout_batch_size: 256        # trajectories per step = 32 queries x 8
+group_size: 8                  # G in Eq. 4
+ppo_epochs: 1
+learning_rate: 1.0e-6
+lr_scheduler: constant
+warmup_steps: 0
+weight_decay: 0.0
+max_grad_norm: 1.0
+clip_eps: 0.2                  # epsilon_c in Eq. 5
+kl_coef: 0.001                 # beta in Eq. 5
+kl_type: low_var_kl            # k3 estimator
+entropy_coef: 0.0
+advantage_clip: 10.0
+reward_clip: 20.0
+max_sequence_length: 15000
+bf16: true
+gradient_checkpointing: true
+freeze_patterns: [visual.blocks, visual.patch_embed]
+
+# rollout sampling
+response_length: 1024          # max new tokens per assistant turn
+temperature: 1.0
+top_p: 0.95
+top_k: 60
+rollout_micro_batch: 32        # concurrent episodes per generate() call per rank
+
+# validation / checkpoints
+eval_steps: 40
+save_steps: 40
+val_batch_size: 16
+logging_steps: 1
+
+# reward: full | iou_only | iou_distance | iou_tool (Table 4)
+reward_preset: full
+
+# environment (EnvConfig fields)
+env:
+  max_assistant_turns: 8
+  max_tool_calls: 7
+  protocol: paper
+  enabled_tools: [get_landmark_xy, zoom_in, render_oblique]
+  landmark_mode: clean
+  require_cache: true

@@ -1,0 +1,36 @@
+3s-vision
+Copyright 2026 3S Holding OÜ
+Developed by Prof. Shahab Anbarjafari.
+
+This software is an independent implementation of the method described in
+
+    Wang, Y., Dai, R., Chen, W., Wang, Y., Dang, B., Liu, K., Chu, X. and Li, Y., 2026.
+    Urbex: Agentic Spatial Grounding for City-Scale 3D Scenes.
+    arXiv preprint arXiv:2610.18356.
+
+The method, its design and its published results belong to the Urbex authors.
+
+Parts of this software are adapted from the Urbex reference release
+(https://github.com/AMAP-ML/Urbex), Copyright 2026 The Urbex Authors,
+licensed under the Apache License, Version 2.0, to stay compatible with the
+released checkpoint (vvangfaye/Urbex-4B) and data (vvangfaye/Urbex-Data):
+
+    vision3s/prompts.py          system / user prompt text and the "release" tool schemas
+    vision3s/tools.py            tool validation limits and tool-response wording
+    vision3s/views.py            view-to-world mapping and patch-aligned display sizing
+    vision3s/oblique/camera.py   oblique camera conventions
+    vision3s/oblique/cache.py    oblique-cache layout and cuboid overlay
+    vision3s/data/download.py    release manifest format and archive validation
+    vision3s/eval/hit_k.py       candidate sources, ranking rules, denominator semantics
+    vision3s/eval/metrics_3d.py  2D-to-3D lifting protocol and point-level metrics
+
+These files were rewritten and modified; the files above carry a notice of
+their origin. The reinforcement-learning trainer, environment, rollout,
+renderer, dataset builders and diagnostics are original to this
+implementation. No code from ROLL (https://github.com/alibaba/ROLL), on which
+the reference release is built, is included.
+
+Datasets and model weights are not distributed with this repository.
+CityRefer, SensatUrban and STPLS3D remain under their original terms; the
+processed Urbex data and checkpoint remain under the terms of their
+Hugging Face cards.

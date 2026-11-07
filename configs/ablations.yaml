@@ -1,0 +1,22 @@
+# Ablation settings (Tables 3 and 4). Each entry lists the `env` / top-level keys that differ from
+# configs/grpo.yaml. "Turns" is the assistant-turn budget T_max; the last turn is reserved for the
+# answer, so at most T_max - 1 tool calls are possible.
+#
+# Example (Zoom + Landmark, 8 turns):
+#   3s-vision train --config configs/grpo.yaml --set output_dir=runs/zoom_landmark \
+#     'env={max_assistant_turns: 8, max_tool_calls: 7, protocol: paper, require_cache: true,
+#           enabled_tools: [zoom_in, get_landmark_xy]}'
+
+tools_and_budget:                # Table 3
+  no_tools_0:      {env: {enabled_tools: [], max_assistant_turns: 1, max_tool_calls: 0}}
+  zoom_8:          {env: {enabled_tools: [zoom_in], max_assistant_turns: 8, max_tool_calls: 7}}
+  zoom_landmark_8: {env: {enabled_tools: [zoom_in, get_landmark_xy], max_assistant_turns: 8, max_tool_calls: 7}}
+  all_tools_7:     {env: {enabled_tools: [zoom_in, get_landmark_xy, render_oblique], max_assistant_turns: 7, max_tool_calls: 6}}
+  all_tools_8:     {env: {enabled_tools: [zoom_in, get_landmark_xy, render_oblique], max_assistant_turns: 8, max_tool_calls: 7}}
+  all_tools_9:     {env: {enabled_tools: [zoom_in, get_landmark_xy, render_oblique], max_assistant_turns: 9, max_tool_calls: 8}}
+
+rewards:                         # Table 4 (all tools, 8 turns)
+  iou_only:     {reward_preset: iou_only}
+  iou_distance: {reward_preset: iou_distance}
+  iou_tool:     {reward_preset: iou_tool}
+  full:         {reward_preset: full}

@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "3s-vision"
+version = "1.0.0"
+description = "Implementation of Urbex: agentic spatial grounding for city-scale 3D scenes (arXiv:2610.18356)"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Shahab Anbarjafari", email = "shb@3sholding.com" }]
+maintainers = [{ name = "3S Holding OÜ", email = "shb@3sholding.com" }]
+requires-python = ">=3.10"
+keywords = ["3d visual grounding", "vision-language models", "agents", "reinforcement learning", "GRPO", "urban scenes"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy>=1.24",
+    "pillow>=10.0",
+    "scipy>=1.10",
+    "plyfile>=1.0",
+    "pyyaml>=6.0",
+    "tqdm>=4.60",
+]
+
+[project.optional-dependencies]
+model = ["torch>=2.4", "torchvision", "transformers>=4.57", "accelerate>=1.0", "safetensors"]
+train = ["3s-vision[model]"]
+api = ["openai>=1.40"]
+data = ["scikit-learn>=1.3", "huggingface_hub>=0.24", "zstandard>=0.22", "openai>=1.40"]
+viz = ["matplotlib>=3.7"]
+dev = ["pytest>=7", "torch>=2.4", "matplotlib>=3.7", "scikit-learn>=1.3"]
+all = ["3s-vision[model,api,data,viz]"]
+
+[project.scripts]
+3s-vision = "vision3s.cli:main"
+
+[project.urls]
+Paper = "https://arxiv.org/abs/2610.18356"
+
+[tool.setuptools.packages.find]
+include = ["vision3s*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "tests"]
